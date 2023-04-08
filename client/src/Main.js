@@ -3,7 +3,7 @@ import Search from "./Search";
 import FilteredPokemon from "./FilteredPokemon";
 import { useState } from "react";
 
-function Main() {
+function Main(accessToken) {
     const [typeSelectedArray, setTypeSelectedArray] = useState([]);
     return (
         <>
@@ -13,6 +13,7 @@ function Main() {
             />
             <FilteredPokemon
                 typeSelectedArray={typeSelectedArray}
+                accessToken={accessToken}
             />
         </>
     );

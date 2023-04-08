@@ -125,7 +125,7 @@ app.get('/logout', asyncWrapper(async (req, res) => {
   const user = await userModel.findOne({ authToken: token });
   if (user) {
     // throw new PokemonAuthError("User not found");
-    await userModel.updateOne({ token_invalid: true });
+    await userModel.updateOne({ authToken: '', refreshToken: '', token_invalid: true });
   }
   res.send("Logged out");
 }));

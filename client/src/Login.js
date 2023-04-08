@@ -10,42 +10,60 @@ function Login() {
     const [refreshToken, setRefreshToken] = useState('');
     const [user, setUser] = useState(null);
 
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [isAdmin, setIsAdmin] = useState(false);
-
     const onSubmit = async (e) => {
         e.preventDefault();
+
         const res = await axios.post("http://localhost:5000/login", { username, password });
         setAccessToken(res.headers['auth-token-access']);
         setRefreshToken(res.headers['auth-token-refresh']);
         setUser(res.data);
-        console.log(user);
+    };
+
+    const onLogout = async (e) => {
+        e.preventDefault();
+        await axios.get("http://localhost:5000/logout",
+            {
+                headers: {
+                    Authorization: 'Bearer ' + accessToken
+                }
+            });
+        setUsername('');
+        setPassword('');
+        setAccessToken('');
+        setRefreshToken('');
+        setUser(null);
     };
 
     return (
         <>
-            <label >
-                Username:
-                <input type="text" name="username" onChange={(e) => {
-                    setUsername(e.target.value);
-                }} />
-            </label>
-            <label >
-                Password:
-                <input type="password" name="password" onChange={(e) => {
-                    setPassword(e.target.value);
-                }} />
-            </label>
-            <button type="button" value="Submit" onClick={onSubmit}>Submit</button>
-            {/* <button type="button" value="Register" onClick={() => { setLogin("register"); }}>Register</button> */}
-            {/* {showErr && <p>Something went wrong! Please try again</p>} */}
+            {
+                !user ?
+                    <>
+                        <label >
+                            Username:
+                            <input type="text" name="username" onChange={(e) => {
+                                setUsername(e.target.value);
+                            }} />
+                        </label>
+                        <label >
+                            Password:
+                            <input type="password" name="password" onChange={(e) => {
+                                setPassword(e.target.value);
+                            }} />
+                        </label>
+                        <button type="button" value="Submit" onClick={onSubmit}>Submit</button>
+                    </>
+                    : <>
+                        <button type="button" value="Logout" onClick={onLogout}>Logout</button>
+                    </>
+            }
             <div>
                 {
                     user ?
                         user.role === "admin" ?
-                            <Dashboard />
+                            <Dashboard accessToken={accessToken} setAccessToken={setAccessToken} refreshToken={refreshToken} />
                             :
-                            <Main />
+                            <Main accessToken={accessToken} />
                         : <></>
                 }
             </div>

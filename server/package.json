@@ -90,7 +90,7 @@
     "whatwg-url": "^11.0.0"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "node index.js --max-http-header-size=16384",
     "test": "jest --reporters default jest-stare --coverage --detectOpenHandles --runInBand --testTimeout=60000",
     "test:watch": "jest --verbose --watchAll"
   },

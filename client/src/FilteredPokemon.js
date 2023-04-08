@@ -15,6 +15,7 @@ function FilteredPokemon({ typeSelectedArray }) {
       let data = response.data.filter(pokemon =>
         typeSelectedArray.every((type => pokemon.type.includes(type)))
       );
+
       setPokemons(data);
     }
     fetchPokemons();
