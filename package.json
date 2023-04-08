@@ -6,9 +6,8 @@
     "concurrently": "^8.0.1"
   },
   "scripts": {
-    "client": "cd client && npm start",
-    "server": "cd server && npm start",
-    "start": "concurrently \"npm run server\" \"npm run client\""
+    "start": "node server/index.js",
+    "build": "cd client && npm install && npm run build"
   },
   "repository": {
     "type": "git",
