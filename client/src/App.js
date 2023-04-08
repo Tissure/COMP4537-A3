@@ -1,20 +1,14 @@
-import Search from "./Search";
-import FilteredPokemon from "./FilteredPokemon";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Login from "./Login";
+
 
 function App() {
-  const [typeSelectedArray, setTypeSelectedArray] = useState([]);
 
   return (
     <>
-      <Search
-        setTypeSelectedArray={setTypeSelectedArray}
-        typeSelectedArray={typeSelectedArray}
-      />
-      <FilteredPokemon
-        typeSelectedArray={typeSelectedArray}
-      />
-
+      <div>
+        <Login />
+      </div>
     </>
   );
 }
